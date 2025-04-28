@@ -1,1 +1,7 @@
 try/
+/dlc*
+/try.py
+/*.ipynb
+/*.md
+/*.yaml
+__pycache__/
