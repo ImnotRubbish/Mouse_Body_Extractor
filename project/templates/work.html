@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作页面</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('modify_config') }}">修改配置文件</a>
+        <a href="{{ url_for('extract_frames') }}">视频帧提取</a>
+        <a href="{{ url_for('label_frames') }}">标记点注册</a>
+        <a href="{{ url_for('train_model') }}">模型训练</a>
+        <a href="{{ url_for('export_video') }}">行为视频导出</a>
+    </nav>
+    <div id="content">
+        <!-- 子页面内容将在这里显示 -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建您的新项目</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #34495e;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .file-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .file-group input[type="file"] {
+            flex: 1;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button[type="submit"] {
+            background: #3498db;
+            color: white;
+            width: 300px; 
+            height: 50px; 
+            font-size: 1.2rem;
+        }
+
+        button[type="submit"]:hover {
+            background: #2980b9;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .nav-buttons button {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .nav-buttons button:hover {
+            background: #7f8c8d;
+        }
+
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+    </style>
+    <script>
+        function updatePath(inputId, event) {
+            const pathInput = document.getElementById(inputId);
+            const files = event.target.files;
+            if (files.length > 0) {
+                pathInput.value = files[0].path.replace(/\\/g, '/');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>创建您的新项目</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="project_name">项目名称:</label>
+                <input type="text" id="project_name" name="project_name" required>
+            </div>
+            <div class="form-group">
+                <label for="user_name">用户名称:</label>
+                <input type="text" id="user_name" name="user_name" required>
+            </div>
+            <div class="form-group">
+                <label for="video_dir">源视频目录:</label>
+                <input type="text" id="video_dir" name="video_dir" required>
+                <div class="file-group">
+                    <input type="file" id="video_dir_file" webkitdirectory onchange="updatePath('video_dir', event)">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="work_dir">项目工作目录:</label>
+                <input type="text" id="work_dir" name="work_dir" value="{{ user_desktop }}" required>
+                <div class="file-group">
+                    <input type="file" id="work_dir_file" webkitdirectory onchange="updatePath('work_dir', event)">
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit">开始创建</button>
+            </div>
+        </form>
+        {% if message %}
+            <div class="message">{{ message }}</div>
+        {% endif %}
+        <div class="nav-buttons">
+            <button onclick="window.location.href='/'">返回</button>
+            <button onclick="window.location.href='/work'">继续</button>
+        </div>
+    </div>
+</body>
+</html>
