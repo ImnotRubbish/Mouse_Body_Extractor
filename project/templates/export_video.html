@@ -101,6 +101,30 @@
         .nav-buttons button:hover {
             background-color: #868e96;
         }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
 
         .message {
             margin-top: 1rem;
@@ -132,8 +156,16 @@
     </script>
 </head>
 <body>
+    <nav>
+        <a href="{{ url_for('welcome') }}">首页</a>
+        <a href="{{ url_for('modify_config') }}">修改配置文件</a>
+        <a href="{{ url_for('extract_frames') }}">视频帧提取</a>
+        <a href="{{ url_for('label_frames') }}">标记点注册</a>
+        <a href="{{ url_for('train_model') }}">模型训练</a>
+        <a href="{{ url_for('export_video') }}">行为视频导出</a>
+    </nav>
     <div class="container">
-        <h1>Export Labeled Videos</h1>
+        <h1>行为视频导出</h1>
         <form action="/export_videos" method="post">
             <div class="form-section">
                 <label for="video_dir">Video Directory:</label>
@@ -147,7 +179,7 @@
                     <option value=".mov">.mov</option>
                 </select>
             </div>
-            <button type="submit" class="submit-btn">Export Videos</button>
+            <button type="submit" class="submit-btn">导出视频</button>
         </form>
         {% if message %}
             <div class="message">{{ message | replace('\n', '<br>') | safe }}</div>

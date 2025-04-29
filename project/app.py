@@ -39,10 +39,6 @@ def load_project():
         return render_template('load_project.html', message=message)
     return render_template('load_project.html')
 
-@app.route('/work')
-def work():
-    return render_template('work.html')
-
 @app.route('/modify_config', methods=['GET', 'POST'])
 def modify_config():
     if processor.config_path:
