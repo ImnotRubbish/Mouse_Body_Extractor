@@ -108,7 +108,7 @@
             border-radius: 4px;
             background-color: #e9ecef;
             color: #495057;
-            text-align: center;
+            text-align: left;
         }
     </style>
     <script>
@@ -149,9 +149,11 @@
             </div>
             <button type="submit" class="submit-btn">Export Videos</button>
         </form>
-        <div id="result" class="message"></div>
+        {% if message %}
+            <div class="message">{{ message | replace('\n', '<br>') | safe }}</div>
+        {% endif %}
         <div class="nav-buttons">
-            <button onclick="window.history.back()">返回</button>
+            <button onclick="window.location.href='/train_model'">返回</button>
             <button onclick="window.location.href='/'">继续</button>
         </div>
     </div>

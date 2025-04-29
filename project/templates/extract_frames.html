@@ -108,7 +108,7 @@
             border-radius: 4px;
             background-color: #e9ecef;
             color: #495057;
-            text-align: center;
+            text-align: left;
         }
     </style>
 </head>
@@ -127,10 +127,10 @@
             <button type="submit" class="submit-btn">开始提取</button>
         </form>
         {% if message %}
-            <div class="message">{{ message }}</div>
+            <div class="message">{{ message | replace('\n', '<br>') | safe }}</div>
         {% endif %}
         <div class="nav-buttons">
-            <button onclick="window.history.back()">返回</button>
+            <button onclick="window.location.href='/modify_config'">返回</button>
             <button onclick="window.location.href='/label_frames'">继续</button>
         </div>
     </div>

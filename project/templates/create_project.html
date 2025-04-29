@@ -160,7 +160,7 @@
             </div>
         </form>
         {% if message %}
-            <div class="message">{{ message }}</div>
+            <div class="message">{{ message | replace('\n', '<br>') | safe }}</div>
         {% endif %}
         <div class="nav-buttons">
             <button onclick="window.location.href='/'">返回</button>

@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
 import os
 import yaml
+from flask import Flask, render_template, request, redirect, url_for
 from dlc_module import DLCProcessor
 
 app = Flask(__name__)
@@ -18,12 +18,12 @@ def create_project():
         video_dir = request.form['video_dir']
         work_dir = request.form['work_dir']
 
-        config_path = processor.create_project(video_dir, work_dir, project_name, user_name)
+        config_path, output_messages = processor.create_project(video_dir, work_dir, project_name, user_name)
         processor.config_path = config_path
         if config_path:
-            message = f"项目创建成功！配置文件地址: {config_path}"
+            message = f"项目创建成功！配置文件地址: {config_path}\n" + "\n控制台输出:\n"+ "\n".join(output_messages)
         else:
-            message = "项目创建失败，请检查输入信息。"
+            message = "项目创建失败，请检查输入信息。\n" + "\n控制台输出:\n" + "\n".join(output_messages)
         return render_template('create_project.html', message=message)
     return render_template('create_project.html')
 
@@ -84,8 +84,8 @@ def extract_frames():
         min_interval = int(request.form.get('min_interval', 30))
         max_interval = int(request.form.get('max_interval', 40))
         try:
-            processor.extract_frames(min_interval, max_interval)
-            message = "视频帧提取成功！"
+            output_messages = processor.extract_frames(min_interval, max_interval)
+            message = "视频帧提取成功！\n控制台输出:\n" + "\n".join(output_messages)
         except Exception as e:
             message = f"视频帧提取失败: {str(e)}"
         return render_template('extract_frames.html', message=message)
@@ -97,14 +97,14 @@ def label_frames():
         action = request.form.get('action')
         if action == 'start':
             try:
-                processor.label_frames()
-                message = "标记点注册成功！"
+                output_messages = processor.label_frames()
+                message = "控制台输出:\n" + "\n".join(output_messages)
             except Exception as e:
                 message = f"标记点注册失败: {str(e)}"
         elif action == 'check':
             try:
-                processor.check_labels()
-                message = "标记点注册检查成功！"
+                output_messages = processor.check_labels()
+                message = "标记点注册检查成功！\n控制台输出:\n" + "\n".join(output_messages)
             except Exception as e:
                 message = f"标记点注册检查失败: {str(e)}"
         return render_template('label_frames.html', message=message)
@@ -116,21 +116,21 @@ def train_model():
         action = request.form.get('action')
         if action == 'create_dataset':
             try:
-                processor.create_training_dataset()
-                message = "数据集创建成功！"
+                output_messages = processor.create_training_dataset()
+                message = "数据集创建成功！\n控制台输出:\n" + "\n".join(output_messages)
             except Exception as e:
                 message = f"数据集创建失败: {str(e)}"
         elif action == 'start_train':
             try:
-                processor._setup_gpu()
-                processor.train_model()
-                message = "模型训练成功！"
+                gpu_output = processor._setup_gpu()
+                output_messages = processor.train_model()
+                message = "模型训练成功！\nGPU设置输出:\n" + "\n".join(gpu_output) + "\n控制台输出:\n" + "\n".join(output_messages)
             except Exception as e:
                 message = f"模型训练失败: {str(e)}"
         elif action == 'evaluate':
             try:
-                processor.evaluate_model()
-                message = "模型评估成功！"
+                output_messages = processor.evaluate_model()
+                message = "模型评估成功！\n控制台输出:\n" + "\n".join(output_messages)
             except Exception as e:
                 message = f"模型评估失败: {str(e)}"
         return render_template('train_model.html', message=message)
@@ -148,14 +148,14 @@ def export_video():
             action = request.form.get('action')
             if action == 'process':
                 try:
-                    processor.process_videos(video_dir)
-                    message = "视频处理成功！"
+                    output_messages = processor.process_videos(video_dir)
+                    message = "视频处理成功！\n控制台输出:\n" + "\n".join(output_messages)
                 except Exception as e:
                     message = f"视频处理失败: {str(e)}"
             elif action == 'export':
                 try:
-                    processor.create_labeled_video(video_dir, save_type)
-                    message = "标记视频导出成功！"
+                    output_messages = processor.create_labeled_video(video_dir, save_type)
+                    message = "标记视频导出成功！\n控制台输出:\n" + "\n".join(output_messages)
                 except Exception as e:
                     message = f"标记视频导出失败: {str(e)}"
             return render_template('export_video.html', video_dir=video_dir, save_type=save_type, message=message)
@@ -163,4 +163,5 @@ def export_video():
     return render_template('export_video.html', message="请先创建或加载项目")
 
 if __name__ == '__main__':
+    
     app.run(debug=False)
