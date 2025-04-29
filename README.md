@@ -31,24 +31,24 @@
     - Windows 10/11 （推荐）
 
 2. Python版本
-    - Python 3.7+ （推荐3.8或更高版本）  
+    - Python 3.10.17
 
 3. 依赖库
-    - TensorFlow 2.x （推荐2.4或更高版本）
+    - TensorFlow 2.19
     - DeepLabCut （推荐2.2或更高版本）
-    - Flask （推荐2.0或更高版本）
-    - OpenCV （推荐4.5或更高版本）
-    - NumPy （推荐1.19或更高版本）
-    - YAML （推荐5.4或更高版本）  
+    - Flask
+    - OpenCV 
+    - NumPy 
+    - YAML  
 
 4. 硬件要求
     - CPU : 至少4核处理器（推荐8核或更高）
-    - GPU : NVIDIA GPU（推荐RTX 2060或更高，支持CUDA 11.0+）
-    - 内存 : 至少16GB（推荐32GB或更高）
+    - GPU : NVIDIA GPU（推荐RTX 2060或更高，支持CUDA 12.0+）
+    - 内存 : 至少8GB（推荐16GB或更高）
     - 存储 : 至少50GB可用空间（推荐SSD）  
 
 5. 软件环境
-    - CUDA : 11.0或更高版本（如果使用GPU）
+    - CUDA : 12.5
     - cuDNN : 8.0或更高版本（如果使用GPU）
     - NVIDIA驱动 : 450.80.02或更高版本（如果使用GPU）  
 
@@ -65,7 +65,7 @@
 ## 安装与运行
 1. 克隆本项目：
    ```bash
-   git clone https://github.com/your-repo/Mouse_Body_Extractor.git
+   git clone https://github.com/ImnotRubbish/Mouse_Body_Extractor.git
 
 2. 安装依赖：
    ```bash

@@ -1,0 +1,12 @@
+deeplabcut==3.0.0rc8
+Flask==3.1.0
+ipython==8.36.0
+jupyter==1.1.1
+jupyterlab==4.4.1
+notebook==6.5.7#notebook<7.0.0
+numpy==1.26.4
+opencv-python==4.11.0.86
+PyYAML==6.0.2
+tables==3.8.0
+tensorflow==2.19.0
+
