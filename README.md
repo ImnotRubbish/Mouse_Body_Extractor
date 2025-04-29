@@ -80,7 +80,6 @@
 
 
 ## 文件结构
-    ```bash
     project/
     ├── app.py                # Flask应用主文件
     ├── dlc_module.py         # DLC功能实现
@@ -94,7 +93,6 @@
     │   ├── train_model.html
     │   └── welcome.html
     └── README.md             # 项目说明文件
-    ```
 
 ## 使用说明
 - 访问欢迎页面，选择"创建新项目"或"加载项目"
